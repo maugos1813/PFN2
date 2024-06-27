@@ -11,6 +11,6 @@ app.use(morgan('dev'))
 
 app.use('/api/user', usuariosRoutes)
 
-app.use('/documentation', swaggerUI.serve, swaggerUI.setup(jsonDocs))
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(jsonDocs))
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))
