@@ -1,8 +1,17 @@
 import { pool } from '../config/db.js'
 
 export const getAllUsers = async (req, res) => {
-  const [result] = await pool.query('SELECT * FROM User')
-  res.json(result)
+  const { idUser, isAdmin } = req.body
+  if (idUser === 2 || isAdmin) {
+    try {
+      const [result] = await pool.query('SELECT * FROM User')
+      res.json(result)
+    } catch (error) {
+      res.status(500).json({ message: 'Error al obtener los usuarios', error })
+    }
+  } else {
+    res.status(403).json({ message: 'No autorizado' })
+  }
 }
 
 export const partialUpdateUsers = async (req, res) => {
