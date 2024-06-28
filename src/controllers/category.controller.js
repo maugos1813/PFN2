@@ -3,12 +3,10 @@ import { pool } from '../config/db.js'
 export const createCategory = async (req, res) => {
   const { idUser, categoryName } = req.body
 
-  // Verificar si el usuario es administrador
   if (idUser !== 2) {
     return res.status(403).json({ message: 'No autorizado' })
   }
 
-  // Verificar si el nombre de la categoría se proporcionó
   if (!categoryName) {
     return res.status(400).json({ message: 'Faltan datos para crear categoría' })
   }
@@ -33,12 +31,10 @@ export const editCategory = async (req, res) => {
   const { idUser, categoryName } = req.body
   const { id } = req.params
 
-  // Verificar si el usuario es administrador
   if (idUser !== 2) {
     return res.status(403).json({ message: 'No autorizado' })
   }
 
-  // Verificar si el nombre de la categoría se proporcionó
   if (!categoryName) {
     return res.status(400).json({ message: 'El nombre de la categoría es requerido' })
   }
@@ -52,7 +48,7 @@ export const editCategory = async (req, res) => {
       params.push(categoryName)
     }
 
-    query = query.slice(0, -2) // Eliminar la última coma y espacio
+    query = query.slice(0, -2)
     query += ' WHERE idCategory = ?'
     params.push(id)
 
